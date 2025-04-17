@@ -1,0 +1,6 @@
+/backend/.env.production
+/backend/.env
+/backend/node_modules
+
+/frontend/.watchmanconfig
+/frontend/.env

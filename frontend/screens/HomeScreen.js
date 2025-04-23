@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
   searchBar: {
     flex: 1,
     marginRight: 8,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#e0e0e0',
     elevation: 0,
   },
   centered: {

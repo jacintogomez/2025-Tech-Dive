@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Text, Card, ActivityIndicator, FAB, Searchbar, IconButton, Menu } from 'react-native-paper';
 import { useAuth } from '../context/AuthContext';
 import { pinsAPI } from '../services/api';
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 
 const { width } = Dimensions.get('window');
 const numColumns = 2;
@@ -92,10 +93,12 @@ const HomeScreen = () => {
           onDismiss={() => setMenuVisible(false)}
           anchor={
             <IconButton
-              icon="account-circle"
+              icon={({size,color})=>(
+                <MaterialCommunityIcons name='cog' size={size} color={color}/>
+              )}
               size={24}
               onPress={() => setMenuVisible(true)}
-              iconColor="#E60023"
+              iconColor="gray"
             />
           }
         >

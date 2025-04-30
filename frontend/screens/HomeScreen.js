@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, StyleSheet, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Text, Card, ActivityIndicator, FAB, Searchbar, IconButton, Menu } from 'react-native-paper';
+import {Text, Card, ActivityIndicator, FAB, Searchbar, IconButton, Menu, useTheme} from 'react-native-paper';
 import { useAuth } from '../context/AuthContext';
 import { pinsAPI } from '../services/api';
 
@@ -17,6 +17,56 @@ const HomeScreen = () => {
     const [error, setError] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [menuVisible, setMenuVisible] = useState(false);
+    const theme=useTheme();
+
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            backgroundColor: theme.colors.background,
+        },
+        header: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            padding: 8,
+            backgroundColor: theme.colors.background,
+            borderBottomWidth: 1,
+            borderBottomColor: theme.dark?'#333':'#e0e0e0',
+        },
+        searchBar: {
+            flex: 1,
+            marginRight: 8,
+            backgroundColor: theme.dark?'#333':'#e0e0e0',
+            elevation: 0,
+        },
+        centered: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: theme.colors.background,
+        },
+        pinGrid: {
+            padding: 16,
+        },
+        pinCard: {
+            width: pinWidth,
+            marginBottom: 16,
+            marginRight: 16,
+            elevation: 2,
+            backgroundColor: theme.colors.elevation?.level1||theme.colors.surface,
+        },
+        pinImage: {
+            height: pinWidth,
+        },
+        pinTitle: {
+            padding: 8,
+        },
+        fab: {
+            position: 'absolute',
+            margin: 16,
+            right: 0,
+            bottom: 0,
+        },
+    });
 
     const fetchPins = async () => {
         try {
@@ -144,53 +194,5 @@ const HomeScreen = () => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 8,
-        backgroundColor: '#fff',
-        borderBottomWidth: 1,
-        borderBottomColor: '#e0e0e0',
-    },
-    searchBar: {
-        flex: 1,
-        marginRight: 8,
-        backgroundColor: '#e0e0e0',
-        elevation: 0,
-    },
-    centered: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-    },
-    pinGrid: {
-        padding: 16,
-    },
-    pinCard: {
-        width: pinWidth,
-        marginBottom: 16,
-        marginRight: 16,
-        elevation: 2,
-    },
-    pinImage: {
-        height: pinWidth,
-    },
-    pinTitle: {
-        padding: 8,
-    },
-    fab: {
-        position: 'absolute',
-        margin: 16,
-        right: 0,
-        bottom: 0,
-    },
-});
 
 export default HomeScreen; 

@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import {Text, Card, ActivityIndicator, FAB, Searchbar, IconButton, Menu, useTheme} from 'react-native-paper';
 import { useAuth } from '../context/AuthContext';
 import { pinsAPI } from '../services/api';
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 
 const { width } = Dimensions.get('window');
 const numColumns = 2;

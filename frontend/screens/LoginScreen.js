@@ -7,7 +7,7 @@ import {
     TouchableWithoutFeedback,
     Keyboard,
 } from 'react-native';
-import { TextInput, Button, Text, Surface } from 'react-native-paper';
+import {TextInput, Button, Text, Surface, useTheme} from 'react-native-paper';
 import { authAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 
@@ -16,6 +16,7 @@ const LoginScreen = ({ navigation }) => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const { login } = useAuth();
+    const theme=useTheme();
 
     const handleSubmit = async () => {
         setError('');
@@ -38,7 +39,7 @@ const LoginScreen = ({ navigation }) => {
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.container}
         >
-            <Surface style={styles.surface}>
+            <Surface style={[styles.surface, { backgroundColor: theme.colors.background }]}>
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={styles.content}>
                         <Text style={styles.logo}>Pinterest</Text>
@@ -98,7 +99,6 @@ const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f5f5f5',
     },
     surface: {
         flex: 1,
@@ -106,7 +106,6 @@ const styles = StyleSheet.create({
         padding: 24,
         borderRadius: 16,
         elevation: 4,
-        backgroundColor: '#ffffff',
     },
     content: {
         alignItems: 'center',
@@ -126,7 +125,6 @@ const styles = StyleSheet.create({
     },
     input: {
         marginBottom: 16,
-        backgroundColor: '#ffffff',
     },
     buttonContainer: {
         marginTop: 8,

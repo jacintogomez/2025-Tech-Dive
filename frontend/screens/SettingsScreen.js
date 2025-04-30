@@ -34,6 +34,88 @@ const SettingsScreen = () => {
     const [showPrivacyMenu, setShowPrivacyMenu] = useState(false);
     const [showDataMenu, setShowDataMenu] = useState(false);
 
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            backgroundColor: theme.colors.background,
+        },
+        header: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            padding: 8,
+            backgroundColor: theme.colors.background,
+            elevation: 4,
+            ...Platform.select({
+                ios: {
+                    shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 2 },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 3.84,
+                },
+            }),
+        },
+        backButton: {
+            margin: 0,
+        },
+        headerTitle: {
+            fontSize: 20,
+            fontWeight: 'bold',
+            color: '#fff',
+            marginLeft: 8,
+        },
+        content: {
+            flex: 1,
+            padding: 16,
+        },
+        sectionContainer: {
+            marginBottom: 16,
+            borderRadius: 12,
+            overflow: 'hidden',
+            backgroundColor: theme.colors.background,
+            ...Platform.select({
+                ios: {
+                    shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 2 },
+                    shadowOpacity: 0.1,
+                    shadowRadius: 3,
+                },
+                android: {
+                    elevation: 2,
+                },
+            }),
+        },
+        sectionTitle: {
+            fontSize: 16,
+            fontWeight: 'bold',
+            color: '#666',
+            padding: 16,
+            paddingBottom: 8,
+        },
+        listItem: {
+            paddingVertical: 8,
+            paddingHorizontal: 16,
+        },
+        listItemTitle: {
+            fontSize: 16,
+            fontWeight: '500',
+        },
+        listItemDescription: {
+            fontSize: 14,
+            color: '#666',
+        },
+        logoutButton: {
+            marginTop: 8,
+            marginBottom: 24,
+            borderColor: '#ff4444',
+            borderRadius: 8,
+            paddingVertical: 8,
+        },
+        logoutButtonLabel: {
+            fontSize: 16,
+            fontWeight: '600',
+        },
+    });
+
     const handleLogout = async () => {
         try {
             await AsyncStorage.removeItem('token');
@@ -419,86 +501,4 @@ const SettingsScreen = () => {
     );
 };
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#f5f5f5',
-    },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 8,
-        backgroundColor: '#2F2F3E',
-        elevation: 4,
-        ...Platform.select({
-            ios: {
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-            },
-        }),
-    },
-    backButton: {
-        margin: 0,
-    },
-    headerTitle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#fff',
-        marginLeft: 8,
-    },
-    content: {
-        flex: 1,
-        padding: 16,
-    },
-    sectionContainer: {
-        marginBottom: 16,
-        borderRadius: 12,
-        overflow: 'hidden',
-        backgroundColor: '#fff',
-        ...Platform.select({
-            ios: {
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.1,
-                shadowRadius: 3,
-            },
-            android: {
-                elevation: 2,
-            },
-        }),
-    },
-    sectionTitle: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: '#666',
-        padding: 16,
-        paddingBottom: 8,
-    },
-    listItem: {
-        paddingVertical: 8,
-        paddingHorizontal: 16,
-    },
-    listItemTitle: {
-        fontSize: 16,
-        fontWeight: '500',
-    },
-    listItemDescription: {
-        fontSize: 14,
-        color: '#666',
-    },
-    logoutButton: {
-        marginTop: 8,
-        marginBottom: 24,
-        borderColor: '#ff4444',
-        borderRadius: 8,
-        paddingVertical: 8,
-    },
-    logoutButtonLabel: {
-        fontSize: 16,
-        fontWeight: '600',
-    },
-});
-
-export default SettingsScreen; 
+export default SettingsScreen;

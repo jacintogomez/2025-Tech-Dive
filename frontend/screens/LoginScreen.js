@@ -43,7 +43,7 @@ const LoginScreen = ({ navigation }) => {
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={styles.content}>
                         <Text style={styles.logo}>Pinterest</Text>
-                        <Text variant="headlineMedium" style={styles.title}>Welcome Back</Text>
+                        <Text variant="headlineMedium" style={[styles.title,{color:theme.colors.onBackground}]}>Welcome Back</Text>
                         {error ? <Text style={styles.error}>{error}</Text> : null}
                     </View>
                 </TouchableWithoutFeedback>
@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
     title: {
         textAlign: 'center',
         marginBottom: 24,
-        color: '#111111',
         fontWeight: 'bold',
     },
     input: {

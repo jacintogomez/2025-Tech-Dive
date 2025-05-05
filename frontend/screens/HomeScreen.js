@@ -96,12 +96,17 @@ const HomeScreen = () => {
         pin.description.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
+    const isvalidimageurl=(url)=>{
+        console.log('url is ',url);
+        return typeof url==='string'&&url.trim()!=='';
+    }
+
     const renderPin = ({ item }) => (
         <Card
             style={styles.pinCard}
             onPress={() => navigation.navigate('PinDetail', { pinId: item._id })}
         >
-            <Card.Cover source={{ uri: item.imageUrl }} style={styles.pinImage} />
+            <Card.Cover source={isvalidimageurl(item.imageUrl)?{ uri: item.imageUrl }:require('../assets/no-image.png')} style={styles.pinImage} />
             <Card.Title
                 title={item.title}
                 subtitle={item.description}

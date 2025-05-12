@@ -14,6 +14,7 @@ export const useSettings = () => {
 export const SettingsProvider = ({ children }) => {
     const [settings, setSettings] = useState({
         darkMode: false,
+        showEmail: false,
         gridSize: 'medium', // 'small', 'medium', 'large'
         notifications: true,
         emailNotifications: true,
@@ -77,6 +78,7 @@ export const SettingsProvider = ({ children }) => {
         try {
             const defaultSettings = {
                 darkMode: false,
+                showEmail: false,
                 gridSize: 'medium',
                 notifications: true,
                 emailNotifications: true,

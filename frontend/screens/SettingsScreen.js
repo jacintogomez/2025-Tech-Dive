@@ -181,6 +181,13 @@ const SettingsScreen = () => {
                             ),
                         })}
                         {renderMenuItem({
+                            title:'Reset to Default',
+                            description:'Revert all settings to default',
+                            icon:'restart',
+                            right:props=><List.Icon{...props} icon="chevron-right" color={theme.colors.primary}/>,
+                            onPress:handleResetSettings,
+                        })}
+                        {renderMenuItem({
                             title: "Grid Size",
                             description: "Adjust pin grid size",
                             icon: "view-grid",

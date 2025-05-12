@@ -26,6 +26,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { dummyPins } from '../data/dummyData';
 import {authAPI} from '../services/api';
+import {useSettings} from '../context/SettingsContext';
 
 const { width } = Dimensions.get('window');
 const numColumns = 3;
@@ -33,6 +34,7 @@ const pinSize = width / numColumns - 8;
 
 const ProfileScreen = () => {
     const theme = useTheme();
+    const {settings}=useSettings();
     const navigation = useNavigation();
     const route = useRoute();
     const [user, setUser] = useState(null);
@@ -154,9 +156,11 @@ const ProfileScreen = () => {
                     <Text variant="headlineSmall" style={styles.username}>
                         {user?.username}
                     </Text>
-                    <Text variant="bodyLarge" style={styles.email}>
-                        {user?.email}
-                    </Text>
+                    {settings.privacy.showEmail&&user?.email&&(
+                        <Text variant="bodyLarge" style={styles.email}>
+                            {user?.email}
+                        </Text>
+                    )}
                     {user?.bio && (
                         <Text variant="bodyMedium" style={styles.bio}>
                             {user.bio}

@@ -5,10 +5,90 @@ import {Text, Card, ActivityIndicator, FAB, Searchbar, IconButton, Menu, useThem
 import { useAuth } from '../context/AuthContext';
 import { pinsAPI } from '../services/api';
 import {MaterialCommunityIcons} from "@expo/vector-icons";
+import {Image} from 'react-native';
 
 const { width } = Dimensions.get('window');
 const numColumns = 2;
 const pinWidth = (width - 48) / numColumns; // 48 = padding (16) * 2 + gap (16)
+
+const createStyles =(theme)=> StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: theme.colors.background,
+    },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: 8,
+        backgroundColor: theme.colors.background,
+        borderBottomWidth: 1,
+        borderBottomColor: theme.dark?'#333':'#e0e0e0',
+    },
+    searchBar: {
+        flex: 1,
+        marginRight: 8,
+        backgroundColor: theme.dark?'#333':'#e0e0e0',
+        elevation: 0,
+    },
+    centered: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: theme.colors.background,
+    },
+    pinGrid: {
+        padding: 16,
+    },
+    pinCard: {
+        width: pinWidth,
+        marginBottom: 16,
+        marginRight: 16,
+        elevation: 2,
+        backgroundColor: theme.colors.elevation?.level1||theme.colors.surface,
+    },
+    pinImage: {
+        height: pinWidth,
+    },
+    pinTitle: {
+        padding: 8,
+    },
+    fab: {
+        position: 'absolute',
+        margin: 16,
+        right: 0,
+        bottom: 0,
+    },
+});
+
+const PinCard = ({ item, navigation,styles }) => {
+    const [imageError, setImageError] = useState(false);
+
+    return (
+        <Card
+            style={styles.pinCard}
+            onPress={() => navigation.navigate('PinDetail', { pinId: item._id })}
+        >
+            <Image
+                source={
+                    imageError || !item.imageUrl
+                        ? require('../assets/no-image.png')
+                        : { uri: item.imageUrl }
+                }
+                style={styles.pinImage}
+                onError={() => setImageError(true)}
+                resizeMode="cover"
+            />
+            <Card.Title
+                title={item.title}
+                subtitle={item.description}
+                titleNumberOfLines={2}
+                subtitleNumberOfLines={2}
+                style={styles.pinTitle}
+            />
+        </Card>
+    );
+};
+
 
 const HomeScreen = () => {
     const navigation = useNavigation();
@@ -19,55 +99,7 @@ const HomeScreen = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [menuVisible, setMenuVisible] = useState(false);
     const theme=useTheme();
-
-    const styles = StyleSheet.create({
-        container: {
-            flex: 1,
-            backgroundColor: theme.colors.background,
-        },
-        header: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            padding: 8,
-            backgroundColor: theme.colors.background,
-            borderBottomWidth: 1,
-            borderBottomColor: theme.dark?'#333':'#e0e0e0',
-        },
-        searchBar: {
-            flex: 1,
-            marginRight: 8,
-            backgroundColor: theme.dark?'#333':'#e0e0e0',
-            elevation: 0,
-        },
-        centered: {
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: theme.colors.background,
-        },
-        pinGrid: {
-            padding: 16,
-        },
-        pinCard: {
-            width: pinWidth,
-            marginBottom: 16,
-            marginRight: 16,
-            elevation: 2,
-            backgroundColor: theme.colors.elevation?.level1||theme.colors.surface,
-        },
-        pinImage: {
-            height: pinWidth,
-        },
-        pinTitle: {
-            padding: 8,
-        },
-        fab: {
-            position: 'absolute',
-            margin: 16,
-            right: 0,
-            bottom: 0,
-        },
-    });
+    const styles=createStyles(theme);
 
     const fetchPins = async () => {
         try {
@@ -96,21 +128,12 @@ const HomeScreen = () => {
         pin.description.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    const renderPin = ({ item }) => (
-        <Card
-            style={styles.pinCard}
-            onPress={() => navigation.navigate('PinDetail', { pinId: item._id })}
-        >
-            <Card.Cover source={{ uri: item.imageUrl }} style={styles.pinImage} />
-            <Card.Title
-                title={item.title}
-                subtitle={item.description}
-                titleNumberOfLines={2}
-                subtitleNumberOfLines={2}
-                style={styles.pinTitle}
-            />
-        </Card>
-    );
+    const isvalidimageurl=(url)=>{
+        console.log('url is ',url);
+        return typeof url==='string'&&url.trim()!=='';
+    }
+
+    const renderPin = ({ item }) => <PinCard item={item} navigation={navigation} styles={styles}/>;
 
     if (loading) {
         return (
@@ -196,4 +219,4 @@ const HomeScreen = () => {
     );
 };
 
-export default HomeScreen; 
+export default HomeScreen;

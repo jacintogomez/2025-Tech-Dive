@@ -101,7 +101,10 @@ router.get('/me', async (req, res) => {
     }
 
     const decoded = jwt.verify(token, config.JWT_SECRET);
-    const user = await User.findById(decoded.userId).select('-password');
+    const user = await User.findById(decoded.userId)
+        .select('-password')
+        .populate('pins')
+        .populate('boards');
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }

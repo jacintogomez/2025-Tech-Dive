@@ -13,7 +13,7 @@ import {
 import { useAuth } from '../context/AuthContext';
 import PinCard from '../components/PinCard';
 import LoadingView from '../components/LoadingView';
-import { usePinsFeed } from '../hooks/usePinsFeed';
+import { pinFunctions } from '../hooks/pinFunctions';
 
 const { width } = Dimensions.get('window');
 const numColumns = 2;
@@ -62,7 +62,7 @@ const HomeScreen = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [menuVisible, setMenuVisible] = useState(false);
 
-    const { pins, loading, error } = usePinsFeed(navigation);
+    const { pins, loading, error } = pinFunctions(navigation);
 
     const filteredPins = pins.filter(pin =>
         pin.title.toLowerCase().includes(searchQuery.toLowerCase()) ||

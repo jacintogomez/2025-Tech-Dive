@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { pinsAPI } from '../services/api';
 
-export const usePinsFeed = (navigation) => {
+export const pinFunctions = (navigation) => {
     const [pins, setPins] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
